@@ -5,7 +5,7 @@ import becker.robots.*;
 /** 
  * Practica de los conceptos de Programacion Estructurada
  * @author Fabian Andres Giraldo */
-public class RobotBase
+public class Ejercicio3
 {    
        //Declaracion de Variables -- Forma temporal - No es buena practica tener
        //variables estaticas
@@ -14,12 +14,12 @@ public class RobotBase
         
 	public static void main (String[] args){
             //Declarar la creacion de la ciudad
-            objetos = new City("Field.txt");
+            objetos = new City("Field_1.txt");
 	    objetos.showThingCounts(true);
             
             //Direction.NORTH, EAST, SOUTH, WEST
             //Definicion de la ubicacion del robot, Ciudad, posicion, Direccion, Numero things en el bolso.
-            estudiante = new Robot(objetos,1, 2, Direction.SOUTH,10);
+            estudiante = new Robot(objetos,0, 1, Direction.SOUTH,10);
            /* 
 	    //Mover una interseccion en el sentido al cual este apuntando el objeto.
             estudiante.move ();
@@ -50,35 +50,32 @@ public class RobotBase
             estudiante.pickThing();*/
            
  
+            estudiante.move();
+            int Coins= CheckTake(0);
             
-           GirarDer();
-            estudiante.move();
-            estudiante.turnLeft();
-            estudiante.move();
-            estudiante.turnLeft();
-            estudiante.move();
-            if(estudiante.canPickThing()){
-            estudiante.pickThing();}
-            for (int i = 0; i < 2; i++) {
-                estudiante.turnLeft();
-            }
-            estudiante.move();
-            for (int i = 0; i < 3; i++) {
-                estudiante.turnLeft();
-            }
-            estudiante.move();
-            for (int i = 0; i < 3; i++) {
-                estudiante.turnLeft();
-            }
-            estudiante.move();
-            for (int i = 0; i < 3; i++) {
-                estudiante.turnLeft();
-            }
+            
+           
 	}
         
-        public static void GirarDer(){
-            for (int i = 0; i < 3; i++) {
-                estudiante.turnLeft();
-            }}
+        public static int CheckTake(int Coin){
+            while (estudiante.canPickThing()) {
+            estudiante.pickThing();
+            Coin = Coin + 1;
+                
+            }return Coin;}
+        public static void MovePut(int Coin){
+            estudiante.turnLeft();
+            int dev=Coin;
+            while (Coin!=0) {                
+                estudiante.putThing();
+                estudiante.move();
+            }
+            estudiante.turnLeft();
+            estudiante.turnLeft();
+            for (int i = 0; i < dev; i++) {
+                
+            }
+        }
+        
 }
 
