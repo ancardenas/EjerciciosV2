@@ -11,70 +11,129 @@ public class EJERCICIO1
        //variables estaticas
         public static City objetos;
         public static Robot estudiante;
-        public int parqueaderos[][]=new int[4][5];
-	public static void main (String[] args){
-            //Declarar la creacion de la ciudad
-            objetos = new City("Field_1.txt");
-	    objetos.showThingCounts(true);
+        public static int dir;
+	 
+        public static void faceNorth(){
+            if (dir==4) {
+                estudiante.turnLeft();
+                estudiante.turnLeft();
+                estudiante.turnLeft();
+            }
+            if (dir==3) {
+                estudiante.turnLeft();
+                estudiante.turnLeft();
+            }
+            if (dir==2) {
+                estudiante.turnLeft();
+            }dir=1;
             
+        }
+        public static void faceEast(){
+            if (dir==1) {
+                estudiante.turnLeft();
+                estudiante.turnLeft();
+                estudiante.turnLeft();
+            }
+            if (dir==4) {
+                estudiante.turnLeft();
+                estudiante.turnLeft();
+            }
+            if (dir==3) {
+                estudiante.turnLeft();
+            }dir=2;
+            
+        }
+        public static void faceSouth(){
+            if (dir==2) {
+                estudiante.turnLeft();
+                estudiante.turnLeft();
+                estudiante.turnLeft();
+            }
+            if (dir==1) {
+                estudiante.turnLeft();
+                estudiante.turnLeft();
+            }
+            if (dir==4) {
+                estudiante.turnLeft();
+            }dir=3;
+            
+        }
+        public static void faceWest(){
+            if (dir==3) {
+                estudiante.turnLeft();
+                estudiante.turnLeft();
+                estudiante.turnLeft();
+            }
+            if (dir==2) {
+                estudiante.turnLeft();
+                estudiante.turnLeft();
+            }
+            if (dir==1) {
+                estudiante.turnLeft();
+            }dir=4;
+            
+        }
+        public static void toSpace(int parq,int space){
+            if (parq==1) {
+                switch (estudiante.getAvenue()){
+                    case 4: faceWest(); estudiante.move();
+                                        estudiante.move();
+                                        estudiante.move();break;
+                    case 7: faceWest(); for (int i = 0; i < 6; i++) {
+                            estudiante.move();
+                        }break;
+                }
+
+
+            }
+            if (parq==2) {
+                switch (estudiante.getAvenue()) {
+                    case 1: faceEast(); estudiante.move();
+                                        estudiante.move();
+                                        estudiante.move();break;
+                    case 7: faceWest(); estudiante.move();
+                                        estudiante.move();
+                                        estudiante.move();break;
+                }
+            }
+            if (parq==3) {
+                switch (estudiante.getAvenue()){
+                    case 1: faceEast(); for (int i = 0; i < 6; i++) {
+                            estudiante.move();
+                        }break;
+                    case 4: faceEast(); estudiante.move();
+                                        estudiante.move();
+                                        estudiante.move();break;
+                }
+            }
+            faceNorth();
+            for (int i = 0; i < space; i++) {
+                estudiante.move();
+            }faceEast();estudiante.move();
+        }
+        public static void parking(Carro carro, int parq, int space){
+            
+
+            toSpace(parq,space);
+            estudiante.putThing();
+        }
+        public static void main (String[] args){
+        
+            GrupoParqueaderos grupoParqueaderos =new GrupoParqueaderos();
+           dir=1;
+//Declarar la creacion de la ciudad
+            objetos = new City("Field.txt");
+	    objetos.showThingCounts(true);
+            //Avenue Vertical Street Horizontal
             //Direction.NORTH, EAST, SOUTH, WEST
             //Definicion de la ubicacion del robot, Ciudad, posicion, Direccion, Numero things en el bolso.
-            estudiante = new Robot(objetos,0, 1, Direction.SOUTH,10);
-           /* 
-	    //Mover una interseccion en el sentido al cual este apuntando el objeto.
-            estudiante.move ();
+            estudiante = new Robot(objetos,6, 1, Direction.NORTH,10);
+            Carro parqueo = new Carro(233, 0);
+            int parq= grupoParqueaderos.mejorParq();
+            int space = grupoParqueaderos.espaciolibre(parq);
+            parking(parqueo, parq,space);
+
             
-            //Girar a la izquierda
-            estudiante.turnLeft();
-            
-            //Tomando decisiones, Si puedo tomar un Thing
-            boolean puedeTomar = estudiante.canPickThing();
-            
-            //Tomar un Thing
-            if(puedeTomar == true)
-               estudiante.pickThing();
-            
-            //Especifica el numero de Thing que tiene en robot en el bolso
-            int numeroThings = estudiante.countThingsInBackpack();
-            
-            //Poner Thing, se debe validar que tenga things en el bolso
-            estudiante.putThing();
-                       
-            //Si el frente esta libre de Wall
-            estudiante.frontIsClear();
-            
-            //Invocando una funcion
-            creacionFuncion(4);
-            
-            //Toman un Thing
-            estudiante.pickThing();*/
-           
- 
-            estudiante.move();
-            int Coins= CheckTake(0);
-            
-            
-           
-	}
-        
-        public static int CheckTake(int Coin){
-            while (estudiante.canPickThing()) {
-            estudiante.pickThing();
-            Coin = Coin + 1;
-                
-            }return Coin;}
-        public static void MovePut(int Coin){
-            estudiante.turnLeft();
-            int dev=Coin;
-            while (Coin!=0) {                
-                estudiante.putThing();
-                estudiante.move();
-            }
-            estudiante.turnLeft();
-            estudiante.turnLeft();
-            for (int i = 0; i < dev; i++) {
-                
-            }
         }
         
 }
