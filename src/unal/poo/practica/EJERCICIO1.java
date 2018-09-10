@@ -107,31 +107,21 @@ public class EJERCICIO1
                 }
             }
             faceNorth();
-            for (int i = 0; i < space; i++) {
+            switch (space){
+                case 1: space =5;break;
+                case 2: space = 4;break;
+                case 4: space = 2;break;
+                case 5: space = 1;break;
+            }
+            for (int i = space; i > 0; i--) {
                 estudiante.move();
             }faceEast();estudiante.move();
         }
-        public static void parking(Carro carro, int parq, int space){
-            
 
-            toSpace(parq,space);
-            estudiante.putThing();
-        }
         public static void main (String[] args){
+        GrupoParqueaderos parking = new GrupoParqueaderos();
         
-            GrupoParqueaderos grupoParqueaderos =new GrupoParqueaderos();
-           dir=1;
-//Declarar la creacion de la ciudad
-            objetos = new City("Field.txt");
-	    objetos.showThingCounts(true);
-            //Avenue Vertical Street Horizontal
-            //Direction.NORTH, EAST, SOUTH, WEST
-            //Definicion de la ubicacion del robot, Ciudad, posicion, Direccion, Numero things en el bolso.
-            estudiante = new Robot(objetos,6, 1, Direction.NORTH,10);
-            Carro parqueo = new Carro(233, 0);
-            int parq= grupoParqueaderos.mejorParq();
-            int space = grupoParqueaderos.espaciolibre(parq);
-            parking(parqueo, parq,space);
+        
 
             
         }

@@ -12,29 +12,19 @@ package unal.poo.practica;
 public class Parqueadero {
     private Carro[] carros;
 
-    public Parqueadero() {
-        this.carros = new Carro[5];
-        for (int i = 0; i < 5; i++) {
-            this.carros[i]=null;
-        }
+    public Parqueadero(Carro[] carros) {
+        this.carros = carros;
     }
 
-    public Carro getCarros(int i) {
-        return carros[i];
+    public void setCarros(Carro[] carros) {
+        this.carros = carros;
     }
 
-    public void setCarros(Carro carro, int i) {
-        this.carros[i]=carro;
+    public Carro[] getCarros() {
+        return carros;
     }
-    public int espacioLibre(){
-        int a = 1;
-        for (int i = 0; i < 5; i++) {
-            if (this.carros[i]!=null){
-                a=a+1; } else {
-                
-            }
-        }
-    return a;}
+    
+
     
     
     
